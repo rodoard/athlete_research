@@ -22,7 +22,6 @@ class TrainingLoad < ActiveRecord::Base
 
   belongs_to :player
   scope :order_by_date, -> { order('date ASC') }
-
   validates :category,
     inclusion: { in: CATEGORIES },
     presence: true
@@ -36,6 +35,10 @@ class TrainingLoad < ActiveRecord::Base
     numericality: { only_integer: true },
     presence: true
 
+  def self.three_days_from date
+    where date:(date-1)..(date -3)
+  end
+  
   def value
     rating * duration if rating && duration
   end
