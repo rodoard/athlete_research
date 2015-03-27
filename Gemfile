@@ -46,6 +46,8 @@ gem 'annotate', '~> 2.6.6'
 gem 'bootstrap-sass'
 gem 'simple_form'
 
+gem 'recursive-open-struct'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end

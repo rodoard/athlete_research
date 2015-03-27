@@ -1,4 +1,5 @@
 module Training
+  mattr_accessor :rfactor_strategy
   #argument hash {date => load_value }
   def self.perceived_loads loads
     loads.inject({}) do |results,(date,load)|
@@ -63,20 +64,11 @@ module Training
     _recover_time(following_day, following_day_load, days_prior, to_recover, perceived)
   end
 
-  #residual factor table
-  RFACTOR = {
-    "750" => [0.40, 0.20, 0.10],
-    "250"=> [0.30, 0.15, 0.05],
-    "0" => [0.20, 0.10 , 0.00]
-  }
   def self.rfactor load, days_prior 
     index = days_prior - 1
-    if load >= 750
-      return RFACTOR["750"][index]
-    elsif load >= 250
-      return RFACTOR["250"][index]
-    elsif load >= 0
-      return RFACTOR["0"][index]
-    end       
-  end    
+    Training.rfactor_strategy.rfactor load, index
+  end 
 end
+
+Training.rfactor_strategy = Training::Strategy.send AppConfig.training_rfactor_strategy
+
