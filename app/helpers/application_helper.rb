@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def load_sparkline(player)
-    load_values = player.last_7_training_loads.map(&:value)
+  def load_sparkline(training_loads)
+    load_values = training_loads.last(7).map(&:value)
     max_value = load_values.max
     lines = load_values.map { |value|
       percent = (100 * value.to_f / max_value).round

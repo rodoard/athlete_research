@@ -15,13 +15,15 @@
   </thead>
 
   <tbody>
-    <% @players.each do |player| %>
+    <% @players.find_each do |player| %>
       <tr>
         <td><%= player.first_name %></td>
         <td><%= player.last_name %></td>
-        <td><%= load_sparkline(player) %></td>
-        <td><%= player.training_load_for date %></td>
-        <td><%= player.recover_time_for(date).days_to_recover %> </td>
+        <% training_loads = player.training_loads %> 
+        <td><%= load_sparkline training_loads %></td>
+        <%= training_load_for_date = training_load_for date, training_loads %>
+        <td><%= training_load_for_date %></td>
+        <td><%= recover_time_for date, training_load_for_date,  training_loads %> </td>
         <td><a href="<%= player_training_load_path(player) %>">Chart &raquo;</a></td>
       </tr>
     <% end %>

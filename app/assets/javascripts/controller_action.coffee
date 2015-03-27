@@ -1,4 +1,4 @@
-$ ->
+$(document).ready ->
   controller = $('body').data('controller')
   action = $('body').data('action')
   if window[controller]

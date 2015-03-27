@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   DEFAULT_DATE = Date.parse('2015-03-16')
 
   def index
-    @players = Player.all
+    @players = Player.includes(:training_loads)
   end
 
   private

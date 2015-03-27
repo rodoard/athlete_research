@@ -11,6 +11,6 @@
   <div class="container">
     <%= yield %>
   </div>
-  <% yield(:js) %> 
+  <%= javascript_include_tag 'controller_action', 'data-turbolinks-track' => true %>
 </body>
 </html>

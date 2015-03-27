@@ -15,15 +15,9 @@ module Training
         elsif load >= 0
           return RFACTOR["0"][days_prior]
         end       
-      end   
-      private
-       #residual factor table
-       RFACTOR = {
-          "750" => [0.40, 0.20, 0.10],
-          "250"=> [0.30, 0.15, 0.05],
-          "0" => [0.20, 0.10 , 0.00]
-        }
-    end
+      end 
+    end     
+      
     class Improved
       def self.rfactor load, days_prior
         if load >= 750
@@ -34,6 +28,13 @@ module Training
           return RFACTOR["0"][days_prior] * load/(250.0 -1)
         end       
       end     
-    end   
+    end
+    private
+     #residual factor table
+     RFACTOR = {
+        "750" => [0.40, 0.20, 0.10],
+        "250"=> [0.30, 0.15, 0.05],
+        "0" => [0.20, 0.10 , 0.00]
+      }   
   end  
 end     

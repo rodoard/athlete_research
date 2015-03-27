@@ -40,7 +40,7 @@ class TrainingLoad < ActiveRecord::Base
   end
   
   def self.to_h
-    all.inject({}) {|results,load| results[load.date]= load.value; results}
+    all.inject({}) {|results,load| results[load.date] ||=0; results[load.date] += load.value; results}
   end   
 
   def value
