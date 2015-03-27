@@ -20,7 +20,17 @@ class Player < ActiveRecord::Base
     training_loads.where(date: date).first.value
   end  
 
-  def past_three_days_training_loads_from date
+  def recover_time_for date
+    training_load_for_start_date = training_load_for date
+    three_days_prior_training_loads = three_days_prior_training_loads_from date
+    Training.recover_time(date, training_load_for_start_date , three_days_prior_training_loads)
+  end 
+    
+  def last_7_training_loads
+    training_loads.order_by_date.last(7)
+  end
+  private
+  def three_days_prior_training_loads_from date
     result = training_loads.three_days_from date
     result = result.inject({}) do |collection,load|
       collection[load.date.to_s]=load.value
@@ -31,9 +41,5 @@ class Player < ActiveRecord::Base
       loads[day.to_s]=0
     end   
     loads.merge(result).values
-  end
-
-  def last_7_training_loads
-    training_loads.order_by_date.last(7)
   end
 end

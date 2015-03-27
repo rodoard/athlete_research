@@ -20,11 +20,9 @@
         <td><%= player.first_name %></td>
         <td><%= player.last_name %></td>
         <td><%= load_sparkline(player) %></td>
-        <% training_load_for_date = player.training_load_for date %> 
-        <td><%= training_load_for_date %></td>
-        <% past_three_days_training_loads_from_date = player.past_three_days_training_loads_from date %> 
-        <td><%= recover_time training_load_for_date, past_three_days_training_loads_from_date %> </td>
-        <td><a href="#TODO">Chart &raquo;</a></td>
+        <td><%= player.training_load_for date %></td>
+        <td><%= player.recover_time_for(date).days_to_recover %> </td>
+        <td><a href="<%= player_training_load_path(player) %>">Chart &raquo;</a></td>
       </tr>
     <% end %>
   </tbody>

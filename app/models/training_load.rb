@@ -39,6 +39,10 @@ class TrainingLoad < ActiveRecord::Base
     where date:(date-1)..(date -3)
   end
   
+  def self.to_h
+    all.inject({}) {|results,load| results[load.date]= load.value; results}
+  end   
+
   def value
     rating * duration if rating && duration
   end
